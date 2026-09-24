@@ -4,8 +4,6 @@ export const isBlackoutHour = (hour) => hour >= BLACKOUT_START && hour < BLACKOU
 const BLACKOUT_START = 4; // 4:00 AM
 const BLACKOUT_END = 8;   // 8:00 AM 
 
-const isBlackoutHour = (hour) => hour >= BLACKOUT_START && hour < BLACKOUT_END;
-
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {

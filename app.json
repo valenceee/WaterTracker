@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "WaterTracker",
-    "slug": "WaterTracker",
+    "slug": "saecy-water-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +22,12 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0ee509ff-1a1e-481c-8335-9ef3904eb86d"
+      }
+    },
+    "owner": "sae-and-cy"
   }
 }
