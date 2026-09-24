@@ -5,7 +5,7 @@
 ### How To Use:
 1. Must have an iPhone
 2. Install Expo Go
-3. Contact me at   carmen.riannae@gmail.com   so I can send you the QR
+3. Contact me at >>> carmen.riannae@gmail.com <<< so I can send you the QR
 4. Enjoy!!! (hopefully it works in one go)
 
 
