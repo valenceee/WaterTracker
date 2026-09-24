@@ -33,7 +33,7 @@ export async function scheduleTimeWindowNotifications() {
   await Notifications.cancelAllScheduledNotificationsAsync();
 
   const START = 8 * 60;
-  const END = 24 * 60 + 3 * 60 + 30;
+  const END = 23 * 60 + 59; 
   const STEP = 90;
 
   for (let t = START; t <= END; t += STEP) {

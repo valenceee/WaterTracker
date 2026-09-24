@@ -3,7 +3,6 @@ import { View, Text, Modal, Alert, Pressable, Platform, StyleSheet } from "react
 import * as Notifications from "expo-notifications";
 import {
   scheduleTimeWindowNotifications,
-  scheduleTestNotification,
   isBlackoutHour,
 } from "./notification";
 

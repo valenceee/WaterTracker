@@ -28,6 +28,12 @@
         "projectId": "0ee509ff-1a1e-481c-8335-9ef3904eb86d"
       }
     },
-    "owner": "sae-and-cy"
+    "owner": "sae-and-cy",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0ee509ff-1a1e-481c-8335-9ef3904eb86d"
+    }
   }
 }
