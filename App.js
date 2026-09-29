@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, Modal, Alert, Pressable, Platform, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from "expo-notifications";
 import {
   scheduleTimeWindowNotifications,
@@ -8,6 +9,7 @@ import {
 
 const SNOOZE_SECONDS = 600;
 const MAX_SKIPS = 3;
+const STORAGE_KEY = "@water_tracker_data";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -18,13 +20,54 @@ export default function App() {
 
   useEffect(() => {
     scheduleTimeWindowNotifications();
+    loadStoredData();
   }, []);
 
-  const handleDrink = () => {
+  const loadStoredData = async () => {
+    try {
+      const json = await AsyncStorage.getItem(STORAGE_KEY);
+      if (json) {
+        const data = JSON.parse(json);
+        const savedDate = new Date(data.date).toDateString();
+        const todayDate = new Date().toDateString();
+
+        if (savedDate === todayDate) {
+          setCount(data.count || 0);
+          setLastDrink(data.lastDrink ? new Date(data.lastDrink) : null);
+          setLogs(data.logs ? data.logs.map((d) => new Date(d)) : []);
+          setSkipsUsed(data.skipsUsed || 0);
+        } else {
+          await AsyncStorage.removeItem(STORAGE_KEY);
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load water data", e);
+    }
+  };
+
+  const handleDrink = async () => {
     const now = new Date();
-    setCount((c) => c + 1);
+    const nextCount = count + 1;
+    const nextLogs = [...logs, now];
+
+    setCount(nextCount);
     setLastDrink(now);
-    setLogs((prev) => [...prev, now]);
+    setLogs(nextLogs);
+
+    try {
+      await AsyncStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          date: now.toISOString(),
+          count: nextCount,
+          lastDrink: now.toISOString(),
+          logs: nextLogs.map((d) => d.toISOString()),
+          skipsUsed,
+        })
+      );
+    } catch (e) {
+      console.error("Failed to save water intake", e);
+    }
   };
 
   const handleSkip = async () => {
@@ -154,10 +197,10 @@ export default function App() {
   );
 }
 
-const OLIVE = "#606C38";
-const FOREST = "#283618";
-const CREAM = "#FEFAE0";
-const BURNT = "#BC6C25";
+const OLIVE = "#010100";
+const FOREST = "#020301";
+const CREAM = "#090905";
+const BURNT = "#14120f";
 const FADED = "#C9C6B4";
 const HAIRLINE = "rgba(40,54,24,0.12)";
 
